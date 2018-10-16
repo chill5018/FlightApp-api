@@ -1,4 +1,14 @@
 {
+  "presets": [
+    [
+      "es2015",
+      {
+        "targets": {
+          "esmodules": true
+        }
+      }
+    ]
+  ],
   "plugins": [
     ["module-resolver", {
       "root": ["./"]

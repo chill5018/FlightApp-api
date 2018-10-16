@@ -1,9 +1,9 @@
-import path from 'path';
+const path = require('path');
 
-import { spawn } from 'child-process-promise';
-import { parseURL } from 'whatwg-url';
+const { spawn } = require('child-process-promise');
+const { parseURL } = require('whatwg-url');
 
-import 'server/initialize';
+require('server/initialize');
 
 const spawnOptions = { cwd: path.join(__dirname, '../..'), stdio: 'inherit' };
 

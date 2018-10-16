@@ -6,18 +6,18 @@
  * in other files.
  */
 
-import fs from 'fs';
-import path from 'path';
+const fs = require('fs');
+const path = require('path');
 
-import autoParse from 'auto-parse';
-import {
+const autoParse = require('auto-parse') ;
+const {
   includes,
   omit,
   assign,
-} from 'lodash';
-import queryString from 'query-string';
-import Sequelize from 'sequelize';
-import { parseURL } from 'whatwg-url';
+} = require('lodash');
+const queryString = require('query-string') ;
+const Sequelize = require('sequelize');
+const { parseURL } = require('whatwg-url') ;
 
 // Convert postgres "bigint" columns to integers
 require('pg').defaults.parseInt8 = true;
@@ -67,4 +67,4 @@ Object.keys(db).forEach((modelName) => {
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 
-export default db;
+module.exports = db;
