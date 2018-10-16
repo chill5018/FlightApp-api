@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 
-import models from 'src/models';
+import models from 'server/models';
 
 import factories from 'test/factories';
 import truncate from 'test/truncate';

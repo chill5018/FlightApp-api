@@ -6,7 +6,7 @@
   "functions": 0,
   "branches": 0,
   "include": [
-    "src/**/*.js"
+    "server/**/*.js"
   ],
   "require": [
     "babel-register"

@@ -3,7 +3,7 @@ import path from 'path';
 import { spawn } from 'child-process-promise';
 import { parseURL } from 'whatwg-url';
 
-import 'src/initialize';
+import 'server/initialize';
 
 const spawnOptions = { cwd: path.join(__dirname, '../..'), stdio: 'inherit' };
 

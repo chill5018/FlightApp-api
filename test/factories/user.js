@@ -1,6 +1,6 @@
 import faker from 'faker';
 
-import models from 'src/models';
+import models from 'server/models';
 
 /**
  * Generate an object which contains attributes needed

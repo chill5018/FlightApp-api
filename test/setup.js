@@ -1,1 +1,1 @@
-import 'src/initialize';
+import 'server/initialize';
