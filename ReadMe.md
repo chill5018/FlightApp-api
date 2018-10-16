@@ -1,30 +1,52 @@
-# Flight-Api
+# testing-with-sequelize
 
-[Starter Article](https://scotch.io/tutorials/getting-started-with-node-express-and-postgres-using-sequelize)
+An example repository for how to test with the Sequelize ORM.
 
-### Getting Started 
+## Development
 
-1. clone repo:  `git clone git@github.com:chill5018/FlightApp-api.git flight-api`
+A quick guide to get a new development environment setup
 
-2. install dependencies: `yarn`
+### Setup
 
-3. start dev server: `yarn start:dev`
+**Node**
 
-## Global Dependencies 
+1. Install `nvm` with `curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.31.7/install.sh | bash`.
+2. Install `node 8.11.2` with `nvm install 8.11.2`.
+3. From the root directory of this project, run `nvm use 8.11.2`.
+4. Run `npm install`
 
-1. sequelize ORM for Postgres: `npm install -g sequelize-cli`
+**Database**
 
-## Sequelize Commands
+1. Install PostgreSQL on your local machine. The instructions for this very from operating system to operating system.
 
-* Create Databse: `sequelize db:create`
+```bash
+$ brew install postgresql
+```
 
-* Create Models: `sequelize model:create --name Todo --attributes title:string`
+2. Start PostgreSQL and run on startup.
 
-* Migrate Database: `sequelize db:migrate`
+```bash
+$ brew services start postgresql
+```
 
+3. Ensure a `root` user exists on PostgreSQL with no password:
 
-## Helpful Links
-[Sequelize Docs](http://docs.sequelizejs.com/manual/tutorial/instances.html#updating-saving-persisting-an-instance)
+```bash
+$ psql --dbname=postgres
+postgres=# CREATE USER root;
+postgres=# ALTER USER root WITH SUPERUSER;
+```
 
+4. Create the database by running:
 
-[Super Test - Blackbox testing node](https://github.com/visionmedia/supertest#readme)
+```bash
+$ NODE_ENV=test npm run db:create
+```
+
+### Testing
+
+To run the test suite, simply run
+
+```bash
+$ npm run test
+```
