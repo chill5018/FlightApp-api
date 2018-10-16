@@ -20,7 +20,9 @@
 
 * Migrate Database: `sequelize db:migrate`
 
+
+## Helpful Links
 [Sequelize Docs](http://docs.sequelizejs.com/manual/tutorial/instances.html#updating-saving-persisting-an-instance)
 
 
-
+[Super Test - Blackbox testing node](https://github.com/visionmedia/supertest#readme)
