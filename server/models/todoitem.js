@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     complete: {
       type: DataTypes.BOOLEAN,
       defaultValue: false,
-    }
+    },
   });
   TodoItem.associate = (models) => {
     TodoItem.belongsTo(models.Todo, {
