@@ -16,6 +16,8 @@
 
 ## Sequelize Commands
 
+* Create Databse: `sequelize db:create`
+
 * Create Models: `sequelize model:create --name Todo --attributes title:string`
 
 * Migrate Database: `sequelize db:migrate`

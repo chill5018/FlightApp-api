@@ -1,0 +1,6 @@
+
+--exit
+--recursive
+--compilers js:babel-register
+--slow 2
+--timeout 10000

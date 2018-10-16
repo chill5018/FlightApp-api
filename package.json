@@ -4,8 +4,16 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "db:clean": "sequelize db:drop && sequelize db:create && sequelize db:migrate",
+    "db:create": "sequelize db:create",
+    "db:drop": "sequelize db:drop",
+    "db:migrate": "sequelize db:migrate",
+    "db:rollback": "sequelize db:rollback",
     "start:dev": "./node_modules/.bin/nodemon ./bin/www -w app.js -w server",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "pretest": "NODE_ENV=test npm run db:migrate",
+    "test": "NODE_ENV=test mocha",
+    "test:coverage": "NODE_ENV=test nyc mocha",
+    "test:report": "nyc report --reporter=text-summary"
   },
   "keywords": [],
   "author": "dream-team",
@@ -19,11 +27,22 @@
     "sequelize": "^4.1.0"
   },
   "devDependencies": {
+    "babel-plugin-istanbul": "^5.1.0",
+    "babel-plugin-module-resolver": "^3.1.1",
+    "babel-plugin-syntax-object-rest-spread": "^6.13.0",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-register": "^6.26.0",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.0",
     "eslint": "^2.13.1",
     "eslint-config-airbnb": "^9.0.1",
     "eslint-plugin-import": "^1.10.2",
     "eslint-plugin-jsx-a11y": "^1.5.5",
     "eslint-plugin-react": "^5.2.2",
-    "nodemon": "^1.11.0"
+    "faker": "^4.1.0",
+    "mocha": "^5.2.0",
+    "nodemon": "^1.11.0",
+    "nyc": "^13.1.0"
   }
 }
