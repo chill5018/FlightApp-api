@@ -11,21 +11,21 @@ module.exports = {
       flightId: {
         type: Sequelize.INTEGER,
         references: {
-          model:'Flight',
+          model:'Flights',
           key:'id'
         }
       },
       returnFlightId: {
         type: Sequelize.INTEGER,
         references: {
-          model:'Flight',
+          model:'Flights',
           key:'id'
         }
       },
       userId: {
         type: Sequelize.INTEGER,
         references: {
-          model:'User',
+          model:'Users',
           key:'id'
         }
       },
