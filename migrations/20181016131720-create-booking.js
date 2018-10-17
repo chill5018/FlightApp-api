@@ -1,4 +1,5 @@
 'use strict';
+
 module.exports = {
   up: (queryInterface, Sequelize) => {
     return queryInterface.createTable('Bookings', {
@@ -6,43 +7,43 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       flightId: {
         type: Sequelize.INTEGER,
         references: {
-          model:'Flights',
-          key:'id'
-        }
+          model: 'Flights',
+          key: 'id',
+        },
       },
       returnFlightId: {
         type: Sequelize.INTEGER,
         references: {
-          model:'Flights',
-          key:'id'
-        }
+          model: 'Flights',
+          key: 'id',
+        },
       },
       userId: {
         type: Sequelize.INTEGER,
         references: {
-          model:'Users',
-          key:'id'
-        }
+          model: 'Users',
+          key: 'id',
+        },
       },
       seat: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   down: (queryInterface, Sequelize) => {
     return queryInterface.dropTable('Bookings');
-  }
+  },
 };
