@@ -13,8 +13,8 @@ import models from 'server/models';
 const data = async (props = {}) => {
   const defaultProps = {
     email: faker.internet.email(),
-    first_name: faker.name.firstName(),
-    last_name: faker.name.lastName(),
+    name: faker.name.fullName(),
+    dateOfBirth: faker.date(),
   };
 
   return Object.assign({}, defaultProps, props);

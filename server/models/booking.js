@@ -1,7 +1,10 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Booking = sequelize.define('Booking', {
-    flightId: DataTypes.INTEGER,
+    flightId: {
+      type: DataTypes.INTEGER,
+      foreignKey: true,
+    },
     returnFlightId: DataTypes.INTEGER,
     userId: DataTypes.INTEGER,
     seat: DataTypes.STRING
@@ -10,15 +13,12 @@ module.exports = (sequelize, DataTypes) => {
     Booking.belongsTo(models.User);
     Booking.hasOne(models.Flight, {
       foreignKey: 'id',
-      as:'flightId'
     });
     Booking.hasOne(models.Flight, {
       foreignKey: 'id',
-      as:'returnFlightId'
     });
     Booking.hasOne(models.User, {
-      foreignKey:'id',
-      as:'userId'
+      foreignKey:'id',      
     });
     
   };

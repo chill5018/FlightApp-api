@@ -1,7 +1,10 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Flight = sequelize.define('Flight', {
-    id: DataTypes.STRING,
+    id: {
+      primaryKey: true,
+      type: DataTypes.INTEGER
+    },
     date: DataTypes.DATE,
     duration: DataTypes.INTEGER,
     from: DataTypes.STRING,

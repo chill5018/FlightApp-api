@@ -17,8 +17,8 @@ module.exports = {
         return Todo
         .findAll({
             include: [{
-            model: Flight,
-            as: 'flights',
+                model: Flight,
+                as: 'flights',
             }],
             order: [
             [{ model: Flight, as: 'flights' }, 'ASC'],
