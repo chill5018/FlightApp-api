@@ -15,9 +15,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "start:dev": "./node_modules/.bin/nodemon ./bin/www -w app.js -w server",
-    "pretest": "NODE_ENV=test npm run db:migrate",
-    "test": "NODE_ENV=test mocha",
-    "test:coverage": "NODE_ENV=test nyc mocha",
+    "pretest": "npm run db:migrate",
+    "test": "mocha",
+    "test:coverage": "nyc mocha",
     "test:report": "nyc report --reporter=text-summary"
   },
   "dependencies": {
