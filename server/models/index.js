@@ -1,33 +1,65 @@
+/**
+ * This file simple imports all Sequelize models and configures
+ * their associations.
+ *
+ * Import this file to gain access to all Sequelize models
+ * in other files.
+ */
+
 const fs = require('fs');
 const path = require('path');
+
+const autoParse = require('auto-parse') ;
+const {
+  includes,
+  omit,
+  assign,
+} = require('lodash');
+const queryString = require('query-string') ;
 const Sequelize = require('sequelize');
-const basename = path.basename(module.filename);
-const env = process.env.NODE_ENV || 'development';
-const config = require(`${__dirname}/../config/config.json`)[env];
+const { parseURL } = require('whatwg-url') ;
+
+// Convert postgres "bigint" columns to integers
+require('pg').defaults.parseInt8 = true;
+
+const urlParts = parseURL(process.env.POSTGRES_SERVICE_URL);
+const query = queryString.parse(urlParts.query || ''); urlParts.query = null;
+const pathname = urlParts.path[0]; urlParts.path = [];
+const username = urlParts.username;
+const password = urlParts.password;
+
+const options = omit(urlParts, 'query', 'path', 'username', 'password');
+assign(options, query);
+
+['logging'].forEach(x => { if (options[x]) options[x] = autoParse(options[x]); });
+
+options.dialect = 'postgres';
+options.pool = {
+  max: 5,
+  min: 0,
+  acquire: 30000,
+  idle: 10000,
+};
+options.dialectOptions = {};
+const sequelize = new Sequelize(pathname, username, password, options);
 const db = {};
 
-let sequelize;
-if (config.use_env_variable) {
-  sequelize = new Sequelize(process.env[config.use_env_variable]);
-} else {
-  sequelize = new Sequelize(
-    config.database, config.username, config.password, config
-  );
-}
+const IGNORE_FILES = [
+  '.DS_Store',
+  'index.js',
+];
 
 fs
   .readdirSync(__dirname)
-  .filter((file) =>
-    (file.indexOf('.') !== 0) &&
-    (file !== basename) &&
-    (file.slice(-3) === '.js'))
+  .filter((file) => !includes(IGNORE_FILES, file))
   .forEach((file) => {
     const model = sequelize.import(path.join(__dirname, file));
+
     db[model.name] = model;
   });
 
 Object.keys(db).forEach((modelName) => {
-  if (db[modelName].associate) {
+  if ('associate' in db[modelName]) {
     db[modelName].associate(db);
   }
 });
