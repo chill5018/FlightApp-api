@@ -1,9 +1,9 @@
+const fs = require('fs');
+const path = require('path');
+
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
-
-const fs = require('fs');
-const path = require('path');
 
 const dotenv = require('dotenv');
 const defaults = require('lodash/defaults');
@@ -27,10 +27,9 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 require('./server/routes')(app);
+
 app.get('*', (req, res) => res.status(200).send({
   message: 'Welcome to the beginning of nothingness.',
 }));
-
-
 
 module.exports = app;
