@@ -1,4 +1,4 @@
-const flightsController = require('../controllers').flights;
+// const flightsController = require('../controllers').flights;
 
 module.exports = (app) => {
   app.get('/api', (req, res) => res.status(200).send({

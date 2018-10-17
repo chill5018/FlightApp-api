@@ -9,15 +9,15 @@
 const fs = require('fs');
 const path = require('path');
 
-const autoParse = require('auto-parse') ;
+const autoParse = require('auto-parse');
 const {
   includes,
   omit,
   assign,
 } = require('lodash');
-const queryString = require('query-string') ;
+const queryString = require('query-string');
 const Sequelize = require('sequelize');
-const { parseURL } = require('whatwg-url') ;
+const { parseURL } = require('whatwg-url');
 
 // Convert postgres "bigint" columns to integers
 require('pg').defaults.parseInt8 = true;
