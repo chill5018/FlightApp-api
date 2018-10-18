@@ -1,26 +1,47 @@
-'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Booking = sequelize.define('Booking', {
-    flightId: DataTypes.INTEGER,
-    returnFlightId: DataTypes.INTEGER,
-    userId: DataTypes.INTEGER,
-    seat: DataTypes.STRING
+    id: {
+      primaryKey: true,
+      type: DataTypes.INTEGER,
+    },
+    airlineIndex: {
+      type: DataTypes.INTEGER,
+      foreignKey: true
+    },
+    flightNumber: {
+      type: DataTypes.STRING,
+      foreignKey: true
+    },
+    departureDateTime: {
+      type: DataTypes.BIGINT
+    },
+    arrivalDateTime: {
+      type: DataTypes.BIGINT
+    },
+    destinationIndex: {
+      type: DataTypes.INTEGER,
+      foreignKey: true
+    },
+    originIndex: {
+      type: DataTypes.INTEGER,
+      foreignKey: true
+    }
   }, {});
-  Booking.associate = function(models) {
-    Booking.belongsTo(models.User);
-    Booking.hasOne(models.Flight, {
-      foreignKey: 'id',
-      as:'flightId'
-    });
-    Booking.hasOne(models.Flight, {
-      foreignKey: 'id',
-      as:'returnFlightId'
-    });
-    Booking.hasOne(models.User, {
+
+  Booking.associate = (models) => {
+    Booking.hasOne(models.Airline, {
       foreignKey:'id',
-      as:'userId'
+      as:'airlineIndex'
     });
-    
+    Booking.hasOne(models.Airport, {
+     foreignKey:'id',
+     as:'destinationIndex'
+   });
+   Booking.hasOne(models.Airport, {
+    foreignKey:'id',
+    as:'originIndex'
+  });
   };
+
   return Booking;
 };

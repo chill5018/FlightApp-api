@@ -1,0 +1,33 @@
+// Flight Response 
+{
+  "origin":"int", //airport ID
+  "destination":"int", //airport ID
+  "airports": {
+    "id": "int",
+    "name": "String",
+    "airportCode":"String"
+  },
+  // Airline Selling Ticket (SAS, Norwegian, British Airways, American Airlines, Turkish Air)
+  "airline": { 
+    "id": "int",
+    "name": "String",
+    "offerIndex": ["OfferId - Int"]
+  },
+  // Ticket
+  "ticket": {
+    "id": "int",
+    "price": "Double - BaseCurrency [EUR, DKK, USD]",
+    "flightIndex": "flightId"
+  },
+  // Flight
+  "flight": {
+    "id": "int",
+    "airlineIndex": "airlineId",
+    "flightNumber": "string",
+    "departureDateTime": "timestamp",
+    "arrivalDateTime": "timestamp",
+    "destinationIndex": "airportId",
+    "originIndex": "airportId"
+  }
+
+}
