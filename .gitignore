@@ -27,3 +27,8 @@ build/
 
 # OSX
 *.DS_Store
+config/development.env
+config/development.env
+config/development.env
+config/test.env
+*.env
