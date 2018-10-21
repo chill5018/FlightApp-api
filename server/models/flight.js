@@ -1,6 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
   const Flight = sequelize.define('Flight', {
-<<<<<<< HEAD
     id: {type:DataTypes.INTEGER,primaryKey:true},
     airlineIndex: DataTypes.INTEGER,
     flightNumber: DataTypes.STRING,
@@ -19,20 +18,6 @@ module.exports = (sequelize, DataTypes) => {
     Flight.hasOne(models.Airport, {
       foreignKey:'destinationIndex'
     });
-=======
-    id: {
-      primaryKey: true,
-      type: DataTypes.INTEGER,
-    },
-    date: DataTypes.DATE,
-    duration: DataTypes.INTEGER,
-    from: DataTypes.STRING,
-    to: DataTypes.STRING,
-  }, {});
-
-  Flight.associate = () => {
-    // associations can be defined here
->>>>>>> master
   };
 
   return Flight;
