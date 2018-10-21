@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Airline = sequelize.define('Airline', {
-    id: DataTypes.INTEGER,
+    id: {type:DataTypes.INTEGER, primaryKey:true},
     name: DataTypes.STRING
   }, {});
   Airline.associate = function(models) {
