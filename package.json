@@ -1,11 +1,7 @@
 {
-  "name": "shit",
-  "version": "0.0.1",
-  "description": "An example repository for ",
-  "author": {
-    "name": "Jordan Ell",
-    "email": "me@jordanell.com"
-  },
+  "name": "flight-api",
+  "version": "1.0.0",
+  "description": "Kea Testing Mandatory Assignment ",
   "engines": {
     "node": ">=8.11.0"
   },
@@ -19,9 +15,9 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "start:dev": "./node_modules/.bin/nodemon ./bin/www -w app.js -w server",
-    "pretest": "NODE_ENV=test npm run db:migrate",
-    "test": "NODE_ENV=test mocha",
-    "test:coverage": "NODE_ENV=test nyc mocha",
+    "pretest": "npm run db:migrate",
+    "test": "mocha",
+    "test:coverage": "nyc mocha",
     "test:report": "nyc report --reporter=text-summary"
   },
   "dependencies": {

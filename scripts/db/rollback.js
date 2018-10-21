@@ -4,6 +4,7 @@ const { spawn } = require('child-process-promise');
 const { parseURL } = require('whatwg-url');
 
 require('server/initialize');
+
 const spawnOptions = { cwd: path.join(__dirname, '../..'), stdio: 'inherit' };
 
 (async () => {

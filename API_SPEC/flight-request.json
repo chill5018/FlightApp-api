@@ -1,0 +1,10 @@
+
+// Flight Request
+{
+  "origin": "String",
+  "destination": "String",
+  "departureDate": "Long",
+  "returnDate": "Long",
+  "ticketCount": "Int"
+}
+

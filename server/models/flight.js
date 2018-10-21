@@ -1,4 +1,3 @@
-'use strict';
 module.exports = (sequelize, DataTypes) => {
   const Flight = sequelize.define('Flight', {
     id: {type:DataTypes.INTEGER,primaryKey:true},
@@ -20,5 +19,6 @@ module.exports = (sequelize, DataTypes) => {
       foreignKey:'destinationIndex'
     });
   };
+
   return Flight;
 };

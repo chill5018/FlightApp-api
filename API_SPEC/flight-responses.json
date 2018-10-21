@@ -1,11 +1,13 @@
 // Flight Response 
 {
-  "origin":"int", //airport ID
-  "destination":"int", //airport ID
+  "originName": "Copenhagen",
+  "originCode": "CPH",
+  "destinationName": "New York City",
+  "destinationCode": "JFK",
+  // CPH, JFK, LGA, NWK, SWF (Norwegian)
   "airports": {
     "id": "int",
-    "name": "String",
-    "airportCode":"String"
+    "name": "String"
   },
   // Airline Selling Ticket (SAS, Norwegian, British Airways, American Airlines, Turkish Air)
   "airline": { 
@@ -14,12 +16,12 @@
     "offerIndex": ["OfferId - Int"]
   },
   // Ticket
-  "ticket": {
+  "offer": {
     "id": "int",
     "price": "Double - BaseCurrency [EUR, DKK, USD]",
-    "flightIndex": "flightId"
+    "flightIndex": ["flightId"]
   },
-  // Flight
+  // Booking
   "flight": {
     "id": "int",
     "airlineIndex": "airlineId",
