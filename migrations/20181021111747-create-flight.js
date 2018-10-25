@@ -1,36 +1,34 @@
-
-
 module.exports = {
-  up: (queryInterface, Sequelize) => queryInterface.createTable('Bookings', {
+  up: (queryInterface, Sequelize) => queryInterface.createTable('Flights', {
     id: {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
       type: Sequelize.INTEGER,
     },
-    flightId: {
+    airlineIndex: {
       type: Sequelize.INTEGER,
       references: {
-        model: 'Flights',
+        model: 'Airlines',
         key: 'id',
       },
     },
-    returnFlightId: {
+    flightNumber: Sequelize.STRING,
+    departureDateTime: Sequelize.BIGINT,
+    arrivalDateTime: Sequelize.BIGINT,
+    destinationIndex: {
       type: Sequelize.INTEGER,
       references: {
-        model: 'Flights',
+        model: 'Airports',
         key: 'id',
       },
     },
-    userId: {
+    originIndex: {
       type: Sequelize.INTEGER,
       references: {
-        model: 'Users',
+        model: 'Airports',
         key: 'id',
       },
-    },
-    seat: {
-      type: Sequelize.STRING,
     },
     createdAt: {
       allowNull: false,
@@ -41,5 +39,5 @@ module.exports = {
       type: Sequelize.DATE,
     },
   }),
-  down: (queryInterface) => queryInterface.dropTable('Bookings'),
+  down: (queryInterface) => queryInterface.dropTable('Flights'),
 };
