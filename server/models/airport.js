@@ -1,9 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
   const Airport = sequelize.define('Airport', {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-    },
     name: DataTypes.STRING,
     code: DataTypes.STRING,
   });
