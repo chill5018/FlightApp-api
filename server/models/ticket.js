@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Ticket.associate = (models) => {
-    Ticket.hasOne(models.Flight, {
+    Ticket.belongsTo(models.Flight, { // //'flightIndex' will be added on Ticket , not Flight
       foreignKey: 'flightIndex',
     });
   };
