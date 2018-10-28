@@ -14,9 +14,14 @@ describe('Airline model', () => {
     airline = await factories.airline();
   });
 
-  it('should generate an airline from the factory', async () => {
-    assert.isOk(airline.id);
+  it('Airline ID is number', async () => {
+    assert.isNumber(airline.id);
   });
+
+  it('Airline Name is String', async () => {
+    assert.isString(airline.name);
+  });
+  
 
   it('should truncate the airlines table with each test', async () => {
     const count = await models.Airline.count();
