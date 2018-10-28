@@ -20,6 +20,7 @@ describe('Airport model', () => {
 
   it('Airport Name is String', async () => {
     assert.isString(airport.name);
+    for(var i =0; i < airport.name.length;i++) assert.isNotNumber(airport.name.charAt(i)); 
   });
 
   it('Airport code is 3 char string', async () => {
