@@ -4,5 +4,5 @@ const airports = require('./airports');
 const tickets = require('./tickets');
 
 module.exports = {
-  flights, airlines, airports, tickets
+  flights, airlines, airports, tickets,
 };
