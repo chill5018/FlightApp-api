@@ -1,15 +1,14 @@
 module.exports = (sequelize, DataTypes) => {
   const Ticket = sequelize.define('Ticket', {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-    },
     price: DataTypes.DOUBLE,
-    flightIndex: DataTypes.INTEGER,
+    flightIndex: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
   });
 
   Ticket.associate = (models) => {
-    Ticket.hasOne(models.Flight, {
+    Ticket.belongsTo(models.Flight, { // //'flightIndex' will be added on Ticket , not Flight
       foreignKey: 'flightIndex',
     });
   };

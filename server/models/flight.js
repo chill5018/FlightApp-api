@@ -1,27 +1,41 @@
 module.exports = (sequelize, DataTypes) => {
   const Flight = sequelize.define('Flight', {
-    id: {
+    airlineIndex: {
       type: DataTypes.INTEGER,
-      primaryKey: true,
+      allowNull: false
     },
-    airlineIndex: DataTypes.INTEGER,
-    flightNumber: DataTypes.STRING,
-    departureDateTime: DataTypes.BIGINT,
-    arrivalDateTime: DataTypes.BIGINT,
-    destinationIndex: DataTypes.INTEGER,
-    originIndex: DataTypes.INTEGER,
+    flightNumber: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    departureDateTime: {
+      type: DataTypes.BIGINT,
+      allowNull: false
+    },
+    arrivalDateTime: {
+      type: DataTypes.BIGINT,
+      allowNull: false
+    },
+    destinationIndex: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    originIndex: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
   });
 
   Flight.associate = (models) => {
-    Flight.hasOne(models.Airline, {
-      foreignKey: 'airlineIndex',
+    Flight.belongsTo(models.Airline, {
+      foreignKey: 'airlineIndex', // 'airlineIndex' will be added on Flight instead of Airline
     });
 
-    Flight.hasOne(models.Airport, {
+    Flight.belongsTo(models.Airport, { // 'originIndex' will be added on Flight
       foreignKey: 'originIndex',
     });
 
-    Flight.hasOne(models.Airport, {
+    Flight.belongsTo(models.Airport, { // 'destinationIndex' will be added on Flight
       foreignKey: 'destinationIndex',
     });
   };

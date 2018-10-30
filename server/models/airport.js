@@ -1,11 +1,13 @@
 module.exports = (sequelize, DataTypes) => {
   const Airport = sequelize.define('Airport', {
-    id: {
-      type: DataTypes.INTEGER,
-      primaryKey: true,
-    },
-    name: DataTypes.STRING,
-    code: DataTypes.STRING,
+    name:{
+      type: DataTypes.STRING,
+      allowNull: false
+    } ,
+    code: {
+      type: DataTypes.STRING,
+      allowNull: false
+    } ,
   });
 
   Airport.associate = () => {
