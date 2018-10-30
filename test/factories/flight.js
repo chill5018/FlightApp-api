@@ -1,6 +1,9 @@
 import faker from 'faker';
 
 import models from 'server/models';
+import airline from './airline';
+import airport from './airport';
+
 
 /**
  * Generate an object which contains attributes needed
@@ -13,14 +16,13 @@ import models from 'server/models';
 const data = async (props = {}) => {
   const defaultProps = {
     id:faker.random.number(),
-    airlineIndex:faker.random.number(),
+    airlineIndex:airline().id,
     flightNumber:faker.helpers.replaceSymbols('??') + faker.random.number(100, 9999),
-    departureDateTime:faker.date.future(1).getTime(),
-    arrivalDateTime:faker.date.future(2).getTime(),
-    destinationIndex:faker.random.number(),
-    originIndex:faker.random.number()
+    departureDateTime:faker.date.past(100).getTime(),
+    arrivalDateTime:faker.date.future(100).getTime(),
+    destinationIndex:airport().id,
+    originIndex:airport().id
   };
-
 
   return Object.assign({}, defaultProps, props);
 };
