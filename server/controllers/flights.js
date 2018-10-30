@@ -8,8 +8,8 @@ module.exports = {
         departureDateTime: req.body.departureDateTime,
         arrivalDateTime: req.body.arrivalDateTime,
         airlineIndex: req.body.airlineIndex,
-        destinationIndex: req.body.destinationIndex, //airport id
-        originIndex: req.body.originIndex //airport id
+        destinationIndex: req.body.destinationIndex, // airport id
+        originIndex: req.body.originIndex, // airport id
       })
       .then((flight) => res.status(201).send(flight))
       .catch((error) => res.status(400).send(error));
@@ -18,7 +18,7 @@ module.exports = {
   list(req, res) {
     return Flight
       .all()
-      .then( flights => res.status(200).send(flights))
-      .catch( error => res.status(400).send(error));
+      .then(flights => res.status(200).send(flights))
+      .catch(error => res.status(400).send(error));
   },
 };

@@ -28,14 +28,14 @@ module.exports = (sequelize, DataTypes) => {
 
   Flight.associate = (models) => {
     Flight.belongsTo(models.Airline, {
-      foreignKey: 'airlineIndex', //'airlineIndex' will be added on Flight instead of Airline
+      foreignKey: 'airlineIndex', // 'airlineIndex' will be added on Flight instead of Airline
     });
 
-    Flight.belongsTo(models.Airport, {  //'originIndex' will be added on Flight
+    Flight.belongsTo(models.Airport, { // 'originIndex' will be added on Flight
       foreignKey: 'originIndex',
     });
 
-    Flight.belongsTo(models.Airport, {  //'destinationIndex' will be added on Flight
+    Flight.belongsTo(models.Airport, { // 'destinationIndex' will be added on Flight
       foreignKey: 'destinationIndex',
     });
   };
