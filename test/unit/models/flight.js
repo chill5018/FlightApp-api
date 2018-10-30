@@ -15,11 +15,11 @@ describe('Flight model', () => {
     flight = await factories.flight();
   });
 
-  it('Flight ID is number', async () => {
+  it('should create Flight ID as number', async () => {
     assert.isNumber(flight.id);
   });
 
-  it('Flight number format is LL + NNN(N)', async () => {
+  it('should create Flight as LL + NNN(N) number format', async () => {
     for(var i = 0;i<2;i++) 
         assert.isNotNumber(flight.flightNumber.charAt(i));
     for(var i = 2;i<flight.flightNumber.length;i++) {
@@ -28,14 +28,12 @@ describe('Flight model', () => {
     }
   });
 
-  it('Arrival after Departure', async () => {
+  it('should create Arrival date after Departure date', async () => {
     var departureDate = new Date(flight.departureDateTime);
     var arrivalDate = new Date(flight.arrivalDateTime);
 
     assert.isTrue(arrivalDate.getFullYear() > departureDate.getFullYear());
   });
-
-  
 
   it('should truncate the flights table with each test', async () => {
     const count = await models.Airport.count();

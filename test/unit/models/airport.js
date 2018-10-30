@@ -14,22 +14,21 @@ describe('Airport model', () => {
     airport = await factories.airport();
   });
 
-  it('Airport ID is number', async () => {
+  it('should create Airport ID as number', async () => {
     assert.isNumber(airport.id);
   });
 
-  it('Airport Name is String', async () => {
+  it('should create Airport Name as String', async () => {
     assert.isString(airport.name);
     for(var i =0; i < airport.name.length;i++) assert.isNotNumber(airport.name.charAt(i)); 
   });
 
-  it('Airport code is 3 char string', async () => {
+  it('should create Airport code as 3 char string', async () => {
     assert.isString(airport.code);
     assert.lengthOf(airport.code, 3);
     for(var i =0; i < airport.code.length;i++) assert.isNotNumber(airport.code.charAt(i)); 
 
   });
-  
 
   it('should truncate the airports table with each test', async () => {
     const count = await models.Airport.count();
