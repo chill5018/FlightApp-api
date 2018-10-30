@@ -1,7 +1,10 @@
 module.exports = (sequelize, DataTypes) => {
   const Ticket = sequelize.define('Ticket', {
     price: DataTypes.DOUBLE,
-    flightIndex: DataTypes.INTEGER,
+    flightIndex: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
   });
 
   Ticket.associate = (models) => {
