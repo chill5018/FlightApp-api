@@ -1,5 +1,4 @@
-const Ticket = require('../models').Ticket;
-
+const Ticket = require('../models')
 module.exports = {
     create(req, res) {
       return Ticket
