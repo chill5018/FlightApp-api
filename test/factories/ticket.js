@@ -1,6 +1,8 @@
 import faker from 'faker';
 
 import models from 'server/models';
+import flight from './flight';
+
 
 /**
  * Generate an object which contains attributes needed
@@ -10,14 +12,12 @@ import models from 'server/models';
  *
  * @return {Object}       An object to build the user from.
  */
-
 const data = async (props = {}) => {
   const defaultProps = {
     id:faker.random.number(),
     price:faker.finance.amount(100, 1000),
-    flightIndex:flight.id
+    flightIndex:flight().id
   };
-
 
   return Object.assign({}, defaultProps, props);
 };
@@ -29,6 +29,5 @@ const data = async (props = {}) => {
  *
  * @return {Object}       A user instance
  */
-export default async (props = {}) => {
-    models.Ticket.create(await data(props));
-}
+export default async (props = {}) =>
+  models.Ticket.create(await data(props));
