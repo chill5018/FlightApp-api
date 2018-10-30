@@ -1,4 +1,4 @@
-const Airline = require('../models')
+const Airline = require('../models').Airline;
 
 module.exports = {
   create(req, res) {
