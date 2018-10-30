@@ -7,5 +7,5 @@ module.exports = {
   flights,
   airlines,
   airports,
-  tickets
+  tickets,
 };

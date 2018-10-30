@@ -1,13 +1,13 @@
 module.exports = (sequelize, DataTypes) => {
   const Airport = sequelize.define('Airport', {
-    name:{
+    name: {
       type: DataTypes.STRING,
-      allowNull: false
-    } ,
+      allowNull: false,
+    },
     code: {
       type: DataTypes.STRING,
-      allowNull: false
-    } ,
+      allowNull: false,
+    },
   });
 
   Airport.associate = () => {

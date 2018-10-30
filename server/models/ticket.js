@@ -3,7 +3,7 @@ module.exports = (sequelize, DataTypes) => {
     price: DataTypes.DOUBLE,
     flightIndex: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
   });
 
