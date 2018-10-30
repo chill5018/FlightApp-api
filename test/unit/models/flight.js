@@ -12,7 +12,7 @@ describe('Flight model', () => {
   beforeEach(async () => {
     await truncate();
 
-    airport = await factories.flight();
+    flight = await factories.flight();
   });
 
   it('Flight ID is number', async () => {
@@ -22,22 +22,24 @@ describe('Flight model', () => {
   it('Flight number format is LL + NNN(N)', async () => {
     for(var i = 0;i<2;i++) 
         assert.isNotNumber(flight.flightNumber.charAt(i));
-    for(var i = 2;i<flight.flightNumber.length;i++) 
-        assert.isNumber(flight.flightNumber.charAt(i));
+    for(var i = 2;i<flight.flightNumber.length;i++) {
+      var number = parseInt(flight.flightNumber.charAt(i), 10);
+      assert.isNumber(number);
+    }
   });
 
   it('Arrival after Departure', async () => {
-    var departureDate = new Date(flight.departureDate);
+    var departureDate = new Date(flight.departureDateTime);
     var arrivalDate = new Date(flight.arrivalDateTime);
 
-    assert.isTrue(arrivalDate > departureDate);
+    assert.isTrue(arrivalDate.getFullYear() > departureDate.getFullYear());
   });
 
   
 
-  it('should truncate the airports table with each test', async () => {
+  it('should truncate the flights table with each test', async () => {
     const count = await models.Airport.count();
 
-    assert.equal(count, 1);
+    assert.equal(count, 2);
   });
 });
