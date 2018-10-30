@@ -1,6 +1,9 @@
 module.exports = (sequelize, DataTypes) => {
   const Airline = sequelize.define('Airline', {
-    name: DataTypes.STRING,
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
   });
 
   Airline.associate = () => {
