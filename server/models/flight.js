@@ -1,11 +1,29 @@
 module.exports = (sequelize, DataTypes) => {
   const Flight = sequelize.define('Flight', {
-    airlineIndex: DataTypes.INTEGER,
-    flightNumber: DataTypes.STRING,
-    departureDateTime: DataTypes.BIGINT,
-    arrivalDateTime: DataTypes.BIGINT,
-    destinationIndex: DataTypes.INTEGER,
-    originIndex: DataTypes.INTEGER,
+    airlineIndex: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    flightNumber: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    departureDateTime: {
+      type: DataTypes.BIGINT,
+      allowNull: false
+    },
+    arrivalDateTime: {
+      type: DataTypes.BIGINT,
+      allowNull: false
+    },
+    destinationIndex: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    originIndex: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
   });
 
   Flight.associate = (models) => {
