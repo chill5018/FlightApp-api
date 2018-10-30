@@ -6,7 +6,7 @@ import models from 'server/models';
 import factories from 'test/factories';
 import truncate from 'test/truncate';
 
-describe('Flight model', () => {
+describe('Ticket model', () => {
   let ticket;
 
   beforeEach(async () => {
@@ -15,16 +15,20 @@ describe('Flight model', () => {
     ticket = await factories.ticket();
   });
 
-  it('Ticket ID is number', async () => {
+  it('should create Ticket ID as number', async () => {
     assert.isNumber(ticket.id);
   });
 
-  it('Ticket price is number', async () => {
+  it('should create Ticket price as number', async () => {
     assert.isNumber(ticket.price);
-  });  
-
+  }); 
+  
+  it('should create Flight ID as number', async () => {
+    assert.isNumber(ticket.flightIndex);
+  }); 
+  
   it('should truncate the tickets table with each test', async () => {
-    const count = await models.Airport.count();
+    const count = await models.Ticket.count();
 
     assert.equal(count, 1);
   });
