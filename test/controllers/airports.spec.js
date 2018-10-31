@@ -8,20 +8,20 @@ const { Airport } = require('../../server/models');
 
 chai.use(chaiHttp);
 
-beforeEach((done) => {
-  Airport.bulkCreate([
-    { name: 'Copenhagen Airport', code: 'CPH' },
-    { name: 'John F. Kennedy International Airport', code: 'JFK' },
-  ]).then(() => done());
-});
-
-afterEach((done) => {
-  // We need `where {}` if we want to
-  // remove all the records from the DB
-  Airport.destroy({ where: {}, force: true }).then(done());
-});
-
 describe('Airports controller', () => {
+  beforeEach((done) => {
+    Airport.bulkCreate([
+      { name: 'Copenhagen Airport', code: 'CPH' },
+      { name: 'John F. Kennedy International Airport', code: 'JFK' },
+    ]).then(() => done());
+  });
+
+  afterEach((done) => {
+    // We need `where {}` if we want to
+    // remove all the records from the DB
+    Airport.destroy({ where: {}, force: true, cascade: true }).then(done());
+  });
+
   it('should list ALL airports on /airports GET', (done) => {
     chai.request(server)
       .get('/api/airports')

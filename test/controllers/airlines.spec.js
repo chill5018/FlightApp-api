@@ -8,20 +8,20 @@ const { Airline } = require('../../server/models');
 
 chai.use(chaiHttp);
 
-beforeEach((done) => {
-  Airline.bulkCreate([
-    { name: 'Air France' },
-    { name: 'Air Canada' },
-  ]).then(() => done());
-});
-
-afterEach((done) => {
-  // We need `where {}` if we want to
-  // remove all the records from the DB
-  Airline.destroy({ where: {}, force: true }).then(done());
-});
-
 describe('Airlines controller', () => {
+  beforeEach((done) => {
+    Airline.bulkCreate([
+      { name: 'Air France' },
+      { name: 'Air Canada' },
+    ]).then(() => done());
+  });
+
+  afterEach((done) => {
+    // We need `where {}` if we want to
+    // remove all the records from the DB
+    Airline.destroy({ where: {}, force: true, truncate: true, cascade: true }).then(done());
+  });
+
   it('should list ALL airlines on /airlines GET', (done) => {
     chai.request(server)
       .get('/api/airlines')
