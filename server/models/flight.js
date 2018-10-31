@@ -9,11 +9,11 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     departureDateTime: {
-      type: DataTypes.BIGINT,
+      type: DataTypes.DATE,
       allowNull: false,
     },
     arrivalDateTime: {
-      type: DataTypes.BIGINT,
+      type: DataTypes.DATE,
       allowNull: false,
     },
     destinationIndex: {
