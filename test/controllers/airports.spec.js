@@ -1,12 +1,13 @@
-const chai = require('chai');
 const chaiHttp = require('chai-http');
+
+const chai = require('chai');
 
 const server = require('../../app');
 
-const should = chai.should();
-const { Airport } = require('../../server/models');
-
+chai.should();
 chai.use(chaiHttp);
+
+const { Airport } = require('../../server/models');
 
 describe('Airports controller', () => {
   beforeEach((done) => {

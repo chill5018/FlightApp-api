@@ -1,14 +1,13 @@
-const { Airport, Flight, Airline } = require('../../server/models');
-
 const chaiHttp = require('chai-http');
-
-const server = require('../../app');
 
 const chai = require('chai');
 
-const should = chai.should();
+const server = require('../../app');
 
+chai.should();
 chai.use(chaiHttp);
+
+const { Airport, Flight, Airline } = require('../../server/models');
 
 describe('Flights controller', () => {
   let airlineData;
