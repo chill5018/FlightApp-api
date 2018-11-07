@@ -19,7 +19,7 @@
   "offer": {
     "id": "int",
     "price": "Double - BaseCurrency [EUR, DKK, USD]",
-    "flightIndex": ["flightId"]
+    "flightIndex": "flightId"
   },
   // Booking
   "flight": {
