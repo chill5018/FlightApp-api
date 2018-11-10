@@ -2,27 +2,27 @@ module.exports = (sequelize, DataTypes) => {
   const Flight = sequelize.define('Flight', {
     airlineIndex: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
     flightNumber: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     departureDateTime: {
-      type: DataTypes.BIGINT,
-      allowNull: false
+      type: DataTypes.DATE,
+      allowNull: false,
     },
     arrivalDateTime: {
-      type: DataTypes.BIGINT,
-      allowNull: false
+      type: DataTypes.DATE,
+      allowNull: false,
     },
     destinationIndex: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
     originIndex: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
   });
 

@@ -14,8 +14,8 @@ module.exports = {
       },
     },
     flightNumber: Sequelize.STRING,
-    departureDateTime: Sequelize.BIGINT,
-    arrivalDateTime: Sequelize.BIGINT,
+    departureDateTime: Sequelize.DATE,
+    arrivalDateTime: Sequelize.DATE,
     destinationIndex: {
       type: Sequelize.INTEGER,
       references: {

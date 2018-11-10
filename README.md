@@ -40,7 +40,7 @@ postgres=# ALTER USER root WITH SUPERUSER;
 4. Create the database by running:
 
 ```bash
-$ NODE_ENV=test npm run db:create
+$ npm run db:create
 ```
 
 ### Testing

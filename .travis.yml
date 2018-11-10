@@ -1,0 +1,13 @@
+language: node_js
+node_js:
+  - "node"
+env:
+  global:
+  - NODE_ENV=testing
+services:
+  - postgresql
+before_script:
+  - npm install
+  - psql -c 'create database testing;' -U postgres
+script:
+  - npm run test

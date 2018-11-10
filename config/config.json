@@ -7,10 +7,10 @@
     "port": 5432,
     "dialect": "postgres"
   },
-  "test": {
+  "testing": {
     "username": "postgres",
     "password": null,
-    "database": "testing-demo-test",
+    "database": "testing",
     "host": "127.0.0.1",
     "port": 5432,
     "dialect": "postgres"

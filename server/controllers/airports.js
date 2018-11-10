@@ -1,4 +1,4 @@
-const {Airport} = require('../models');
+const { Airport } = require('../models');
 
 module.exports = {
   create(req, res) {

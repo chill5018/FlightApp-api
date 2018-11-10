@@ -13,6 +13,14 @@ module.exports = {
     "import/imports-first": "off",
     "import/no-named-as-default-member": "off"
   },
+  "overrides": [
+    {
+      "files": ["*-test.js","*.spec.js"],
+      "rules": {
+        "no-unused-expressions": "off"
+      }
+    }
+  ],
   "settings": {
     "import/resolver": {
       "babel-module": {}

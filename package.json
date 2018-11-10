@@ -14,11 +14,11 @@
     "db:rollback": "babel-node ./scripts/db/rollback",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
-    "start:dev": "./node_modules/.bin/nodemon ./bin/www -w app.js -w server",
-    "pretest": "npm run db:migrate",
-    "test": "mocha",
-    "test:coverage": "nyc mocha",
-    "test:report": "nyc report --reporter=text-summary"
+    "start:dev": "./node_modules/.bin/nodemon ./bin/www.js -w app.js -w server",
+    "pretest": "NODE_ENV=testing npm run db:migrate",
+    "test": "NODE_ENV=testing mocha",
+    "test:coverage": "NODE_ENV=testing nyc mocha",
+    "test:report": "NODE_ENV=testing nyc report --reporter=text-summary"
   },
   "dependencies": {
     "auto-parse": "1.5.1",
@@ -48,6 +48,7 @@
     "babel-plugin-transform-es2015-modules-commonjs": "6.26.2",
     "babel-register": "6.26.0",
     "chai": "4.1.2",
+    "chai-http": "4.2.0",
     "eslint": "5.2.0",
     "eslint-config-riipen": "2.0.1",
     "eslint-import-resolver-babel-module": "4.0.0",
