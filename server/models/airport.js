@@ -5,7 +5,7 @@ module.exports = (sequelize, DataTypes) => {
       primaryKey: true,
     },
     name: DataTypes.STRING,
-    code: DataTypes.STRING,
+    code: DataTypes.STRING(3),
   });
 
   Airport.associate = () => {
