@@ -7,7 +7,7 @@ module.exports = {
       type: Sequelize.INTEGER,
     },
     name: Sequelize.STRING,
-    code: Sequelize.STRING,
+    code: Sequelize.STRING(3),
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE,
