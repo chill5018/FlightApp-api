@@ -1,6 +1,7 @@
 import faker from 'faker';
 
 import models from 'server/models';
+
 import flight from './flight';
 
 
@@ -12,15 +13,15 @@ import flight from './flight';
  *
  * @return {Object}       An object to build the user from.
  */
-const data = async (props = {}) => {
+const data = async (props = {}) => flight().then((flight) => {
   const defaultProps = {
-    id:faker.random.number(),
-    price:faker.finance.amount(100, 1000),
-    flightIndex:flight().id
+    id: faker.random.number(),
+    price: faker.finance.amount(100, 1000),
+    flightIndex: flight.id,
   };
 
   return Object.assign({}, defaultProps, props);
-};
+});
 
 /**
  * Generates a user instance from the properties provided.
