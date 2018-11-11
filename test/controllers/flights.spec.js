@@ -1,3 +1,5 @@
+import truncate from 'test/truncate';
+
 const chaiHttp = require('chai-http');
 
 const chai = require('chai');
@@ -43,15 +45,8 @@ describe('Flights controller', () => {
     });
   });
 
-  afterEach((done) => {
-    // We need `where {}` if we want to
-    // remove all the records from the DB
-    // TODO: Refactor this so we don't have infinite chained callbacks
-    Airline.destroy({ where: {}, force: true, truncate: true, cascade: true }).then(() => {
-      Airport.destroy({ where: {}, force: true, truncate: true, cascade: true }).then(() => {
-        Flight.destroy({ where: {}, force: true, truncate: true, cascade: true }).then(() => done());
-      });
-    });
+  afterEach(async () => {
+    await truncate();
   });
 
   it('should list ALL flights on /flights GET', (done) => {
