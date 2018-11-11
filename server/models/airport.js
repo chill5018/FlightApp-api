@@ -5,7 +5,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     code: {
-      type: DataTypes.STRING(3),
+      type: DataTypes.STRING,
+      validate: {
+        len: [3, 3],
+      },
       allowNull: false,
     },
   });
