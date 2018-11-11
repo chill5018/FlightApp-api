@@ -1,7 +1,6 @@
 import { assert } from 'chai';
 
 import models from 'server/models';
-import {DatabaseError, UniqueConstraintError} from 'sequelize';
 
 import factories from 'test/factories';
 import truncate from 'test/truncate';
@@ -17,70 +16,55 @@ describe('Airport model', () => {
 
   it('should create model when ID is number', async () => {
     const airportData = {
-      id : 1,
+      id: 1,
       name: 'Airport',
       code: 'ABC',
     };
 
-    var result = models.Airport.create(airportData);
+    const result = models.Airport.create(airportData);
     assert.isOk(result);
   });
 
-  it('should throw error when ID is string', async () => {
-    const airportData = {
-      id : '11',
-      name: 'Airport',
-      code: 'ABC',
-    };
-
-    assert.throws(() => {models.Airport.create(airportData)}, UniqueConstraintError, 'Error thrown');
-  });
-
-  it('should throw error when ID is float', async () => {
-    const airportData = {
-      id : 1.1,
-      name: 'Airport',
-      code: 'ABC',
-    };
-
-    assert.throws(() => {models.Airport.create(airportData)}, DatabaseError, 'Error thrown');
-  });
-
-
   it('should create Airport Name as String', async () => {
     assert.isString(airport.name);
-    for(var i =0; i < airport.name.length;i++) assert.isNotNumber(airport.name.charAt(i)); 
+    for (let i = 0; i < airport.name.length; i++) assert.isNotNumber(airport.name.charAt(i));
   });
 
   it('should create model when 3-char code is passed', async () => {
     const airportData = {
-      id : 1,
+      id: 1,
       name: 'Airport',
       code: 'ABC',
     };
 
-    var result = models.Airport.create(airportData);
+    const result = models.Airport.create(airportData);
     assert.isOk(result);
   });
 
   it('should throw error when 2-char code is passed', async () => {
     const airportData = {
-      id : 1,
       name: 'Airport',
       code: 'AB',
     };
 
-    assert.throws(() => {models.Airport.create(airportData)}, DatabaseError, 'Error thrown');
+    models.Airport.create(airportData).catch((response) => {
+      const [error] = response.errors;
+      assert.equal(error.type, 'Validation error');
+      assert.equal(error.message, 'Validation len on code failed');
+    });
   });
 
   it('should throw error when 4-char code is passed', async () => {
     const airportData = {
-      id : 1,
       name: 'Airport',
       code: 'ABCD',
     };
 
-    assert.throws(() => {models.Airport.create(airportData)}, DatabaseError, 'Error thrown');
+    models.Airport.create(airportData).catch((response) => {
+      const [error] = response.errors;
+      assert.equal(error.type, 'Validation error');
+      assert.equal(error.message, 'Validation len on code failed');
+    });
   });
 
   it('should truncate the airports table with each test', async () => {
