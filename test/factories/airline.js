@@ -12,8 +12,8 @@ import models from 'server/models';
  */
 const data = async (props = {}) => {
   const defaultProps = {
-    id:faker.random.number(),
-    name: faker.company.companyName()
+    id: faker.random.number(),
+    name: faker.company.companyName(),
   };
 
   return Object.assign({}, defaultProps, props);

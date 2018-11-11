@@ -5,7 +5,6 @@ import models from 'server/models';
 import airline from './airline';
 import airport from './airport';
 
-
 /**
  * Generate an object which contains attributes needed
  * to successfully create a user instance.
@@ -19,11 +18,11 @@ const data = async (props = {}) => Promise.all([
   airport(),
   airport(),
 ]).then((response) => {
-  const [airline, destinationAirport, originAirport] = response;
+  const [airlineData, destinationAirport, originAirport] = response;
 
   const defaultProps = {
     id: faker.random.number(),
-    airlineIndex: airline.id,
+    airlineIndex: airlineData.id,
     flightNumber: faker.helpers.replaceSymbols('??') + faker.random.number(100, 9999),
     departureDateTime: faker.date.past(100).getTime(),
     arrivalDateTime: faker.date.future(100).getTime(),

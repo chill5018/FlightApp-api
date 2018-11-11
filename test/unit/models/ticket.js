@@ -21,12 +21,12 @@ describe('Ticket model', () => {
 
   it('should create Ticket price as number', async () => {
     assert.isNumber(ticket.price);
-  }); 
-  
+  });
+
   it('should create Flight ID as number', async () => {
     assert.isNumber(ticket.flightIndex);
-  }); 
-  
+  });
+
   it('should truncate the tickets table with each test', async () => {
     const count = await models.Ticket.count();
 

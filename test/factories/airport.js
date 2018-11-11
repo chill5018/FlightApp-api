@@ -12,9 +12,9 @@ import models from 'server/models';
  */
 const data = async (props = {}) => {
   const defaultProps = {
-    id:faker.random.number(),
+    id: faker.random.number(),
     name: faker.company.companyName(),
-    code: faker.helpers.replaceSymbols('???')
+    code: faker.helpers.replaceSymbols('???'),
   };
 
 

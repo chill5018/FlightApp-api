@@ -7,7 +7,12 @@ module.exports = {
       type: Sequelize.INTEGER,
     },
     name: Sequelize.STRING,
-    code: Sequelize.STRING(3),
+    code: {
+      type: Sequelize.STRING,
+      validate: {
+        len: [3, 3],
+      },
+    },
     createdAt: {
       allowNull: false,
       type: Sequelize.DATE,
