@@ -11,7 +11,7 @@ describe('Airport model', () => {
   beforeEach(async () => {
     await truncate();
 
-    airport = await factories.airport();
+    //airport = await factories.airport();
   });
 
   it('should create model when ID is number', async () => {
@@ -26,8 +26,29 @@ describe('Airport model', () => {
   });
 
   it('should create Airport Name as String', async () => {
-    assert.isString(airport.name);
-    for (let i = 0; i < airport.name.length; i++) assert.isNotNumber(airport.name.charAt(i));
+    const airportData = {
+      id: 1,
+      name: 'Airport',
+      code: 'ABC',
+    };
+
+    const result = models.Airport.create(airportData);
+    assert.isOk(result);
+  });
+
+  
+  it('should throw error when Airport Name contains numbers', async () => {
+    const airportData = {
+      id: 1,
+      name: 'Airp124ort',
+      code: 'ABC',
+    };
+
+    models.Airport.create(airportData).catch((response) => {
+      const [error] = response.errors;
+      assert.equal(error.type, 'Validation error');
+      assert.equal(error.message, 'Validation is on name failed');
+    });
   });
 
   it('should create model when 3-char code is passed', async () => {
@@ -70,6 +91,6 @@ describe('Airport model', () => {
   it('should truncate the airports table with each test', async () => {
     const count = await models.Airport.count();
 
-    assert.equal(count, 1);
+    assert.equal(count, 0);
   });
 });
