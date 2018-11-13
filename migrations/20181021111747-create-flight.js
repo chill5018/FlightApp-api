@@ -13,9 +13,24 @@ module.exports = {
         key: 'id',
       },
     },
-    flightNumber: Sequelize.STRING,
-    departureDateTime: Sequelize.DATE,
-    arrivalDateTime: Sequelize.DATE,
+    flightNumber: {
+      type:Sequelize.STRING,
+      validate :{
+        is: '^[A-Za-z]{2}[0-9]{3}\z'
+      },
+    }, 
+      departureDateTime: {
+      type: Sequelize.DATE,
+      validate: {
+        isDate: true,
+      },
+    },
+    arrivalDateTime:  {
+      type: Sequelize.DATE,
+      validate: {
+        isDate: true,
+      },
+    },
     destinationIndex: {
       type: Sequelize.INTEGER,
       references: {
