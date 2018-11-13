@@ -23,7 +23,7 @@ const data = async (props = {}) => Promise.all([
   const defaultProps = {
     id: faker.random.number(),
     airlineIndex: airlineData.id,
-    flightNumber: faker.helpers.replaceSymbols('??') + faker.random.number(100, 9999),
+    flightNumber: 'KLM-2435',
     departureDateTime: faker.date.past(100).getTime(),
     arrivalDateTime: faker.date.future(100).getTime(),
     destinationIndex: destinationAirport.id,
