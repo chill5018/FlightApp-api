@@ -3,10 +3,14 @@ module.exports = (sequelize, DataTypes) => {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate:{
+        is: ["^[A-Za-z ]+$",'i'],
+      },
     },
     code: {
       type: DataTypes.STRING,
       validate: {
+        isAlpha:true,
         len: [3, 3],
       },
       allowNull: false,
