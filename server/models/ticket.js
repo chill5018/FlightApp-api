@@ -1,9 +1,17 @@
 module.exports = (sequelize, DataTypes) => {
   const Ticket = sequelize.define('Ticket', {
-    price: DataTypes.DOUBLE,
+    price: {
+      type:DataTypes.DOUBLE,
+      validate: {
+        isFloat:true,
+      },
+    },
     flightIndex: {
       type: DataTypes.INTEGER,
       allowNull: false,
+      validate: {
+        isNumeric:true,
+      },
     },
   });
 

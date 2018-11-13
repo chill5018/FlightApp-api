@@ -3,6 +3,8 @@ import models from 'server/models';
 const truncateTable = (modelName) =>
   models[modelName].destroy({
     where: {},
+    truncate: true,
+    cascade: true,
     force: true,
   });
 

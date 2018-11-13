@@ -1,3 +1,5 @@
+import truncate from 'test/truncate';
+
 const chaiHttp = require('chai-http');
 
 const chai = require('chai');
@@ -10,17 +12,17 @@ chai.use(chaiHttp);
 const { Airport } = require('../../server/models');
 
 describe('Airports controller', () => {
-  beforeEach((done) => {
-    Airport.bulkCreate([
+  beforeEach(async () => {
+    await truncate();
+
+    await Airport.bulkCreate([
       { name: 'Copenhagen Airport', code: 'CPH' },
       { name: 'John F. Kennedy International Airport', code: 'JFK' },
-    ]).then(() => done());
+    ]);
   });
 
-  afterEach((done) => {
-    // We need `where {}` if we want to
-    // remove all the records from the DB
-    Airport.destroy({ where: {}, force: true, cascade: true }).then(done());
+  afterEach(async () => {
+    await truncate();
   });
 
   it('should list ALL airports on /airports GET', (done) => {

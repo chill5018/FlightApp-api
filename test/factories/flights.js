@@ -2,7 +2,7 @@ import faker from 'faker';
 
 import models from 'server/models';
 
-const data = async (props ={}) => {
+const data = async (props = {}) => {
   const defaultProps = {
     originName: faker.address.city(),
     destinationName: faker.address.city(),
