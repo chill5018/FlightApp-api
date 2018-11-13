@@ -8,6 +8,9 @@ module.exports = {
     },
     name: {
       type: Sequelize.STRING,
+      validate :{
+        isAlpha: true,
+      }
     },
     createdAt: {
       allowNull: false,
