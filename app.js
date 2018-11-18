@@ -7,6 +7,7 @@ const bodyParser = require('body-parser');
 
 const dotenv = require('dotenv');
 const defaults = require('lodash/defaults');
+const cors = require('cors');
 
 // Default environment is development to prevent "accidents"
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
@@ -25,6 +26,7 @@ const app = express();
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
 
 require('./server/routes')(app);
 
