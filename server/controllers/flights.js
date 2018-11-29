@@ -1,4 +1,6 @@
 const { Flight } = require('../models');
+var Sequelize = require('sequelize');
+const Op = Sequelize.Op;
 
 module.exports = {
   create(req, res) {
@@ -16,8 +18,21 @@ module.exports = {
   },
 
   list(req, res) {
-    return Flight
+    let airportId = req.query.originIndex;
+    let date = req.query.departureDate;
+    
+    if(airportId == null || date == null){
+      return Flight
       .all()
+      .then(flights => res.status(200).send(flights))
+      .catch(error => res.status(400).send(error));
+    }
+    return Flight
+      .findAll({
+      where: {
+        [Op.and]: [{departureDateTime : {'$gte': new Date(date)}}, {originIndex : airportId} ]
+      },
+    })
       .then(flights => res.status(200).send(flights))
       .catch(error => res.status(400).send(error));
   },
