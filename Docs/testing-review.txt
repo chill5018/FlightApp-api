@@ -1,0 +1,22 @@
+Notes we had:
+You check for valid dates 2 times? (12, 10, 5)
+No requirement for test 3a.
+No requirement for test 4
+No test cases for req 8, 9, 11, 13.
+
+Requirements (exists or not):
+Book flight - exists
+Search flight - exists
+Update flight info (administrator) - exists
+Generate booking ID (System)
+See previous bookings
+Display flights(valid) - exists
+Enter departure date - exists
+Select departure city - exists
+Select flight - exists
+Enter personal details - exists
+Notify user if flight already full - exists
+Enter arrival city - exists
+Show error if entered date not valid(format) - exists
+Select round trip or not
+Not able to select return date before departure date
