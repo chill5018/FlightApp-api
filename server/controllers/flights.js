@@ -25,7 +25,7 @@ module.exports = {
     let arr_date = req.query.arrivalDate;
     
     // if no query params, return all flights
-    if(dep_date == null || dep_city == null || arr_date == null){
+    if(dep_date == null || dep_city == null || arr_city == null){
       return Flight
       .all()
       .then(flights => res.status(200).send(flights))
@@ -55,7 +55,20 @@ module.exports = {
         .findAll({
           where: {[Op.and]: [{departureDateTime : {'$gte': new Date(dep_date)}}, {originIndex : a} ,{destinationIndex : b}]}
         })
-        .then(flights => res.status(200).send(flights))
+        .then(flights => {
+          if(arr_date == null){
+            res.status(200).send(flights);
+          }
+          else{
+            return Flight
+            .findAll({
+              where: {[Op.and]: [{departureDateTime : {'$gte': new Date(arr_date)}}, {originIndex : b} ,{destinationIndex : a}]}
+            })
+            .then(results => {
+              return res.status(200).send(flights.concat(results));
+            })
+          }
+        })
         .catch(error => res.status(400).send(error));
      });
     });
