@@ -1,5 +1,6 @@
 const { Flight } = require('../models');
-var Sequelize = require('sequelize');
+const { Airport } = require('../models');
+const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
 module.exports = {
@@ -18,22 +19,46 @@ module.exports = {
   },
 
   list(req, res) {
-    let airportId = req.query.originIndex;
-    let date = req.query.departureDate;
+    let dep_city = req.query.departureCity;
+    let arr_city = req.query.arrivalCity;
+    let dep_date = req.query.departureDate;
+    let arr_date = req.query.arrivalDate;
     
-    if(airportId == null || date == null){
+    // if no query params, return all flights
+    if(dep_date == null || dep_city == null || arr_date == null){
       return Flight
       .all()
       .then(flights => res.status(200).send(flights))
       .catch(error => res.status(400).send(error));
     }
-    return Flight
-      .findAll({
-      where: {
-        [Op.and]: [{departureDateTime : {'$gte': new Date(date)}}, {originIndex : airportId} ]
-      },
-    })
-      .then(flights => res.status(200).send(flights))
-      .catch(error => res.status(400).send(error));
+      var getdep_id =
+      Airport
+     .findOne(
+       {where : {name: dep_city}}
+     )
+     .then(function(airport){
+       return airport.id;
+     });
+
+     var get_bothIds = 
+     getdep_id.then(function(id){
+      Airport
+      .findOne(
+        {where : {name: arr_city}}
+      )
+      .then(function(airport){
+        return [id, airport.id];
+      })
+      .then(([a,b]) => {
+        
+        return Flight
+        .findAll({
+          where: {[Op.and]: [{departureDateTime : {'$gte': new Date(dep_date)}}, {originIndex : a} ,{destinationIndex : b}]}
+        })
+        .then(flights => res.status(200).send(flights))
+        .catch(error => res.status(400).send(error));
+     });
+    });
   },
-};
+}
+  
