@@ -6,19 +6,20 @@ module.exports = (sequelize, DataTypes) => {
         isFloat:true,
       },
     },
-    flightIndex: {
+    departureFlight: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      validate: {
-        isNumeric:true,
-      },
+      
     },
   });
 
   Ticket.associate = (models) => {
     Ticket.belongsTo(models.Flight, { // //'flightIndex' will be added on Ticket , not Flight
-      foreignKey: 'flightIndex',
+      foreignKey: 'departureFlight',
     });
+    Ticket.belongsTo(models.Flight, { // //'flightIndex' will be added on Ticket , not Flight
+    foreignKey: 'returnFlight',
+  });
   };
 
   return Ticket;
