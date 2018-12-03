@@ -1,11 +1,13 @@
-const { Ticket } = require('../models');
+const {Ticket} = require('../models');
 
 module.exports = {
   create(req, res) {
+    
     return Ticket
       .create({
         price: req.body.price,
-        flightIndex: req.body.flightIndex,
+        departureFlight: req.body.departureFlightId,
+        returnFlight: req.body.returnFlightId,
       })
       .then((airline) => res.status(201).send(airline))
       .catch((error) => res.status(400).send(error));
@@ -18,3 +20,4 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
 };
+
