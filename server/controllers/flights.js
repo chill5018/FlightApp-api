@@ -34,7 +34,7 @@ module.exports = {
     let arr_date = req.query.arrivalDate;
     
     // if no query params, return all flights
-    if(dep_date == null || dep_city == null || arr_city == null){
+    if(dep_date == null && dep_city == null && arr_city == null){
       return Flight
       .all()
       .then(flights => res.status(200).send(flights))
