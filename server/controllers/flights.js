@@ -19,7 +19,7 @@ module.exports = {
   },
   
   getById(req,res){
-    Flight
+    return Flight
     .findOne(
       {where : {id: req.params.id}}
     )
@@ -74,7 +74,7 @@ module.exports = {
               where: {[Op.and]: [{departureDateTime : {'$gte': new Date(arr_date)}}, {originIndex : b} ,{destinationIndex : a}]}
             })
             .then(results => {
-              return res.status(200).send(flights.concat(results));
+              return res.status(200).send(flights.concat(results)); //makePairs(flights,results)
             })
           }
         })
@@ -82,5 +82,17 @@ module.exports = {
      });
     });
   },
+}
+function makePairs(l1, l2){
+  var pairs = new Array(l1.lenght * l2.lenght);
+  var pos = 0;
+  
+  for (var i = 0; i < l1.length; i++) {
+    for (var j = 0; j < l2.length; j++) {
+        pairs[pos] = [l1[i], l2[j]];
+        pos++;
+    }
+}
+return JSON.stringify(pairs);
 }
   
