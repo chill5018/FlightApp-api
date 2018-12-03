@@ -29,7 +29,7 @@ describe('Ticket model', () => {
   it('should throw error when Ticket price is int', async () => {
     const ticket =  {
       price: 689,
-      flightIndex: flight.id,
+      //flightIndex: flight.id,
     };
 
     models.Ticket.create(ticket).catch((response) => {

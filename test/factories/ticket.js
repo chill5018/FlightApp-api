@@ -16,7 +16,7 @@ const data = async (props = {}) => flight().then((flightData) => {
   const defaultProps = {
     id: faker.random.number(),
     price: faker.finance.amount(100, 1000),
-    flightIndex: flightData.id,
+    //flightIndex: flightData.id,
   };
 
   return Object.assign({}, defaultProps, props);
