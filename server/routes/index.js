@@ -13,6 +13,7 @@ module.exports = (app) => {
   app.get('/api/airports', airportsController.list);
   app.post('/api/flights', flightsController.create);
   app.get('/api/flights', flightsController.list);
+  app.get('/api/flights/:id', flightsController.getById);
   app.post('/api/tickets', ticketsController.create);
   app.get('/api/tickets', ticketsController.list);
 };

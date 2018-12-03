@@ -17,6 +17,15 @@ module.exports = {
       .then((flight) => res.status(201).send(flight))
       .catch((error) => res.status(400).send(error));
   },
+  
+  getById(req,res){
+    Flight
+    .findOne(
+      {where : {id: req.params.id}}
+    )
+    .then(flight => res.status(200).send(flight))
+    .catch(error => res.status(400).send(error));
+  },
 
   list(req, res) {
     let dep_city = req.query.departureCity;
