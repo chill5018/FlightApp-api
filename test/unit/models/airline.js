@@ -1,30 +1,30 @@
 import { assert } from 'chai';
 
 import models from 'server/models';
-
-import factories from 'test/factories';
 import truncate from 'test/truncate';
 
 describe('Airline model', () => {
-  let airline;
-
-  beforeEach(async () => {
+  before(async () => {
     await truncate();
-
-    //airline = await factories.airline();
   });
 
-  it('should create Airline Name as String', async () => {
+  after(async () => {
+    await truncate();
+  });
+
+  it('should create Airline Name as String', (done) => {
     const airlineData = {
       name: 'Airline',
     };
 
-    const result = models.Airline.create(airlineData);
-    assert.isOk(result);
+    models.Airline.create(airlineData).then((result) => {
+      assert.isOk(result);
+      done();
+    });
   });
 
-  
-  it('should throw error when Airline Name is number', async () => {
+
+  it('should throw error when Airline Name is number', (done) => {
     const airlineData = {
       name: 123,
     };
@@ -33,12 +33,7 @@ describe('Airline model', () => {
       const [error] = response.errors;
       assert.equal(error.type, 'Validation error');
       assert.equal(error.message, 'Validation is on name failed');
+      done();
     });
-  });
-
-  it('should truncate the airlines table with each test', async () => {
-    const count = await models.Airline.count();
-
-    assert.equal(count, 0);
   });
 });

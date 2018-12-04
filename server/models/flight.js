@@ -5,22 +5,22 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
     },
     flightNumber: {
-      type:DataTypes.STRING,
-      validate : {
-        is: "^[A-Z]{3}-[1-9]{4}?$",
+      type: DataTypes.STRING,
+      validate: {
+        is: '^[A-Z]{3}-[1-9]{4}?$',
       },
-    }, 
+    },
     departureDateTime: {
       type: DataTypes.DATE,
-      allowNull:false,
-      validate : {
+      allowNull: false,
+      validate: {
         isDate: true,
       },
     },
-    arrivalDateTime:  {
+    arrivalDateTime: {
       type: DataTypes.DATE,
-      allowNull:false,
-      validate : {
+      allowNull: false,
+      validate: {
         isDate: true,
       },
     },
@@ -28,14 +28,14 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        isNumeric:true,
+        isNumeric: true,
       },
     },
     originIndex: {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-        isNumeric:true,
+        isNumeric: true,
       },
     },
   });

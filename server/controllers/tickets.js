@@ -1,8 +1,7 @@
-const {Ticket} = require('../models');
+const { Ticket } = require('../models');
 
 module.exports = {
   create(req, res) {
-    
     return Ticket
       .create({
         price: req.body.price,
@@ -20,4 +19,3 @@ module.exports = {
       .catch(error => res.status(400).send(error));
   },
 };
-

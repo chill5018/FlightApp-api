@@ -18,7 +18,7 @@ describe('Airports controller', () => {
     await Airport.bulkCreate([
       { name: 'Copenhagen Airport', code: 'CPH' },
       { name: 'John F. Kennedy International Airport', code: 'JFK' },
-    ]);
+    ], { returning: true });
   });
 
   afterEach(async () => {

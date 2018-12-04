@@ -1,7 +1,33 @@
+const Sequelize = require('sequelize');
+
 const { Flight } = require('../models');
 const { Airport } = require('../models');
-const Sequelize = require('sequelize');
+
 const Op = Sequelize.Op;
+
+function makePairs(departureFlights, returnFlights) {
+  const pairs = [];
+
+  for (let i = 0; i < departureFlights.length; i++) {
+    for (let j = 0; j < returnFlights.length; j++) {
+      const departureFlightResult = departureFlights[i];
+      const returnFlightResult = returnFlights[i];
+
+      const flight = {
+        departureFlight: departureFlightResult,
+        returnFlight: returnFlightResult,
+      };
+
+      pairs.push(flight);
+    }
+  }
+
+  return pairs;
+}
+
+function getNextDay(date) {
+  return new Date(new Date(date).getTime() + (24 * 60 * 60 * 1000));
+}
 
 module.exports = {
   create(req, res) {
@@ -38,69 +64,43 @@ module.exports = {
         .catch(error => res.status(400).send(error));
     }
 
-    let { departureCity } = req.query;
-    let { arrivalCity } = req.query;
-    let { departureDate } = req.query;
-    let { returnDate } = req.query;
-
-    const isReturn = !!departureCity && !!arrivalCity && !!departureDate && !!returnDate;
+    const { departureCity } = req.query;
+    const { arrivalCity } = req.query;
+    const { departureDate } = req.query;
+    const { returnDate } = req.query;
 
     const getDepartureAirportId = Airport.findOne({ where: { name: departureCity } })
-        .then(function (airport) {
-          return airport.id;
-        });
+      .then((airport) => airport.id);
 
-    getDepartureAirportId.then(function (departureAirportId) {
-        Airport
-          .findOne({ where: { name: arrivalCity } })
-          .then(function (arrivalAirport) {
-            return [departureAirportId, arrivalAirport.id];
+    return getDepartureAirportId.then((departureAirportId) => {
+      Airport
+        .findOne({ where: { name: arrivalCity } })
+        .then((arrivalAirport) => [departureAirportId, arrivalAirport.id])
+        .then(([a, b]) => Flight
+          .findAll({
+            where: { [Op.and]: [
+              { departureDateTime: { $gte: new Date(departureDate) } },
+              { departureDateTime: { $lt: getNextDay(departureDate) } },
+              { originIndex: a }, { destinationIndex: b }],
+            },
           })
-          .then(([a, b]) => {
+          .then(flights => {
+            if (returnDate == null) {
+              return res.status(200).send(flights);
+            }
             return Flight
               .findAll({
-                where: { [Op.and]: [{ departureDateTime: { '$gte': new Date(departureDate) } }, { departureDateTime: { '$lt': getNextDay(departureDate) } }, { originIndex: a }, { destinationIndex: b }] }
+                where: { [Op.and]: [
+                  { departureDateTime: { $gte: new Date(returnDate) } },
+                  { departureDateTime: { $lt: getNextDay(returnDate) } },
+                  { originIndex: b }, { destinationIndex: a }],
+                },
               })
-              .then(flights => {
-                if (returnDate == null) {
-                  res.status(200).send(flights);
-                } else {
-                  return Flight
-                    .findAll({
-                      where: { [Op.and]: [{ departureDateTime: { '$gte': new Date(returnDate) } }, { departureDateTime: { '$lt': getNextDay(returnDate) } }, { originIndex: b }, { destinationIndex: a }] }
-                    })
-                    .then(results => {
-                      const formattedData = makePairs(flights, results);
-                      return res.status(200).send(formattedData);
-                    })
-                }
-              }).catch(error => res.status(400).send(error));
-          });
-      });
+              .then(results => {
+                const formattedData = makePairs(flights, results);
+                return res.status(200).send(formattedData);
+              });
+          }).catch(error => res.status(400).send(error)));
+    });
   },
-}
-
-function makePairs(departureFlights, returnFlights) {
-  let pairs = [];
-
-  for (let i = 0; i < departureFlights.length; i++) {
-    for (let j = 0; j < returnFlights.length; j++) {
-      const departureFlightResult = departureFlights[i];
-      const returnFlightResult = returnFlights[i];
-
-      const flight = {
-        departureFlight: departureFlightResult,
-        returnFlight: returnFlightResult
-      }
-
-      pairs.push(flight);
-    }
-  }
-
-  return pairs;
-}
-
-function getNextDay(date) {
-  return new Date(new Date(date).getTime() + 24 * 60 * 60 * 1000)
-}
-
+};

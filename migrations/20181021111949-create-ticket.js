@@ -8,19 +8,20 @@ module.exports = {
     },
     price: Sequelize.DOUBLE,
     departureFlight: {
+      allowNull: false,
       type: Sequelize.INTEGER,
       references: {
         model: 'Flights',
         key: 'id',
-      }
+      },
     },
-      returnFlight: {
-        allowNull: true,
-        type: Sequelize.INTEGER,
-        references: {
-          model: 'Flights',
-          key: 'id',
-        }
+    returnFlight: {
+      allowNull: true,
+      type: Sequelize.INTEGER,
+      references: {
+        model: 'Flights',
+        key: 'id',
+      },
     },
     createdAt: {
       allowNull: false,

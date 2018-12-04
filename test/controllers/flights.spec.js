@@ -40,7 +40,7 @@ describe('Flights controller', () => {
               destinationIndex: airports[0].id,
               originIndex: airports[1].id,
             },
-          ]).then(() => done());
+          ], { returning: true }).then(() => done());
         });
     });
   });
