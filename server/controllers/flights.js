@@ -69,12 +69,12 @@ module.exports = {
     const { departureDate } = req.query;
     const { returnDate } = req.query;
 
-    const getDepartureAirportId = Airport.findOne({ where: { name: departureCity } })
+    const getDepartureAirportId = Airport.findOne({ where: { code: departureCity } })
       .then((airport) => airport.id);
 
     return getDepartureAirportId.then((departureAirportId) => {
       Airport
-        .findOne({ where: { name: arrivalCity } })
+        .findOne({ where: { code: arrivalCity } })
         .then((arrivalAirport) => [departureAirportId, arrivalAirport.id])
         .then(([a, b]) => Flight
           .findAll({
