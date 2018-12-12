@@ -2,6 +2,7 @@ const Sequelize = require('sequelize');
 
 const { Flight } = require('../models');
 const { Airport } = require('../models');
+const { Airline } = require('../models');
 
 const Op = Sequelize.Op;
 
@@ -78,10 +79,27 @@ module.exports = {
         .then((arrivalAirport) => [departureAirportId, arrivalAirport.id])
         .then(([a, b]) => Flight
           .findAll({
-            where: { [Op.and]: [
-              { departureDateTime: { $gte: new Date(departureDate) } },
-              { departureDateTime: { $lt: getNextDay(departureDate) } },
-              { originIndex: a }, { destinationIndex: b }],
+            attributes: ['id', 'flightNumber', 'departureDateTime', 'arrivalDateTime', 'createdAt', 'updatedAt'],
+            include: [{
+              model: Airline,
+              attributes: ['id', 'name'],
+              as: 'airline'
+            },
+            {
+              model: Airport,
+              attributes: ['id', 'name', 'code'],
+              as: 'destination'
+            },
+            {
+              model: Airport,
+              attributes: ['id', 'name', 'code'],
+              as: 'origin'
+            }],
+            where: {
+              [Op.and]: [
+                { departureDateTime: { $gte: new Date(departureDate) } },
+                { departureDateTime: { $lt: getNextDay(departureDate) } },
+                { originIndex: a }, { destinationIndex: b }],
             },
           })
           .then(flights => {
@@ -97,10 +115,27 @@ module.exports = {
             }
             return Flight
               .findAll({
-                where: { [Op.and]: [
-                  { departureDateTime: { $gte: new Date(returnDate) } },
-                  { departureDateTime: { $lt: getNextDay(returnDate) } },
-                  { originIndex: b }, { destinationIndex: a }],
+                attributes: ['id', 'flightNumber', 'departureDateTime', 'arrivalDateTime', 'createdAt', 'updatedAt'],
+                include: [{
+                  model: Airline,
+                  attributes: ['id', 'name'],
+                  as: 'airline'
+                },
+                {
+                  model: Airport,
+                  attributes: ['id', 'name', 'code'],
+                  as: 'destination'
+                },
+                {
+                  model: Airport,
+                  attributes: ['id', 'name', 'code'],
+                  as: 'origin'
+                }],
+                where: {
+                  [Op.and]: [
+                    { departureDateTime: { $gte: new Date(returnDate) } },
+                    { departureDateTime: { $lt: getNextDay(returnDate) } },
+                    { originIndex: b }, { destinationIndex: a }],
                 },
               })
               .then(results => {
