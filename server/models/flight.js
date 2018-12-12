@@ -7,7 +7,7 @@ module.exports = (sequelize, DataTypes) => {
     flightNumber: {
       type: DataTypes.STRING,
       validate: {
-        is: '^[A-Z]{3}-[1-9]{4}?$',
+        is: '^[A-Z]{3}-[0-9]{4}?$',
       },
     },
     departureDateTime: {
