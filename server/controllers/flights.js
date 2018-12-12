@@ -85,8 +85,15 @@ module.exports = {
             },
           })
           .then(flights => {
-            if (returnDate == null) {
-              return res.status(200).send(flights);
+            if (!returnDate) {
+              const formattedFlights = flights.map(flight => {
+                return {
+                  departureFlight: flight,
+                  returnFlight: null
+                };
+              });
+
+              return res.status(200).send(formattedFlights);
             }
             return Flight
               .findAll({
