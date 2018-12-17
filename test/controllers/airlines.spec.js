@@ -59,4 +59,19 @@ describe('Airlines controller', () => {
         done();
       });
   });
+
+  it('should return 400 on /airlines POST if the name is not defined', (done) => {
+    chai.request(server)
+      .post('/api/airlines')
+      .send({ })
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('name');
+        res.body.should.have.property('errors');
+        res.body.errors[0].message.should.equal('Airline.name cannot be null');
+        done();
+      });
+  });
 });
