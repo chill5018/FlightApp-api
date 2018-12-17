@@ -145,4 +145,24 @@ describe('Tickets controller', () => {
         done();
       });
   });
+
+  it('should return 400 on /tickets POST if the price is not defined', (done) => {
+    chai.request(server)
+      .post('/api/tickets')
+      .send(
+        {
+          departureFlightId: flightsData[0].id,
+          returnFlightId: flightsData[1].id,
+        }
+      )
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('name');
+        res.body.should.have.property('errors');
+        res.body.errors[0].message.should.equal('Ticket.price cannot be null');
+        done();
+      });
+  });
 });
