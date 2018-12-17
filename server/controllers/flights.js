@@ -50,7 +50,13 @@ module.exports = {
       .findOne(
         { where: { id: req.params.id } }
       )
-      .then(flight => res.status(200).send(flight))
+      .then(flight => {
+        if (!flight) {
+          return res.status(404).send({ message: 'Flight not found' });
+        }
+
+        return res.status(200).send(flight);
+      })
       .catch(error => res.status(400).send(error));
   },
 
