@@ -14,18 +14,18 @@ module.exports = {
       },
     },
     flightNumber: {
-      type:Sequelize.STRING,
-      validate :{
-        is: '^[A-Za-z]{2}[0-9]{3}\z'
+      type: Sequelize.STRING,
+      validate: {
+        is: '^[A-Za-z]{2}[0-9]{3}\z', // eslint-disable-line no-useless-escape
       },
-    }, 
-      departureDateTime: {
+    },
+    departureDateTime: {
       type: Sequelize.DATE,
       validate: {
         isDate: true,
       },
     },
-    arrivalDateTime:  {
+    arrivalDateTime: {
       type: Sequelize.DATE,
       validate: {
         isDate: true,

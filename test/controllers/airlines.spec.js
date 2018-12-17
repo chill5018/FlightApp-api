@@ -18,7 +18,7 @@ describe('Airlines controller', () => {
     await Airline.bulkCreate([
       { name: 'Air France' },
       { name: 'Air Canada' },
-    ]);
+    ], { returning: true });
   });
 
   afterEach(async () => {

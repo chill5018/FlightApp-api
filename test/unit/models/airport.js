@@ -2,42 +2,45 @@ import { assert } from 'chai';
 
 import models from 'server/models';
 
-import factories from 'test/factories';
 import truncate from 'test/truncate';
 
 describe('Airport model', () => {
-  let airport;
-
   beforeEach(async () => {
     await truncate();
-
-    //airport = await factories.airport();
   });
 
-  it('should create model when ID is number', async () => {
+  after(async () => {
+    await truncate();
+  });
+
+  it('should create model when ID is number', (done) => {
     const airportData = {
       id: 1,
       name: 'Airport',
       code: 'ABC',
     };
 
-    const result = models.Airport.create(airportData);
-    assert.isOk(result);
+    models.Airport.create(airportData).then((result) => {
+      assert.isOk(result);
+      done();
+    });
   });
 
-  it('should create Airport Name as String', async () => {
+  it('should create Airport Name as String', (done) => {
     const airportData = {
       id: 1,
       name: 'Airport',
       code: 'ABC',
     };
 
-    const result = models.Airport.create(airportData);
-    assert.isOk(result);
+    models.Airport.create(airportData).then((result) => {
+      assert.isOk(result);
+      done();
+    });
   });
 
-  
-  it('should throw error when Airport Name contains numbers', async () => {
+
+  it('should throw error when Airport Name contains numbers', (done) => {
     const airportData = {
       id: 1,
       name: 'Airp124ort',
@@ -48,21 +51,24 @@ describe('Airport model', () => {
       const [error] = response.errors;
       assert.equal(error.type, 'Validation error');
       assert.equal(error.message, 'Validation is on name failed');
+      done();
     });
   });
 
-  it('should create model when 3-char code is passed', async () => {
+  it('should create model when 3-char code is passed', (done) => {
     const airportData = {
       id: 1,
       name: 'Airport',
       code: 'ABC',
     };
 
-    const result = models.Airport.create(airportData);
-    assert.isOk(result);
+    models.Airport.create(airportData).then((result) => {
+      assert.isOk(result);
+      done();
+    });
   });
 
-  it('should throw error when 2-char code is passed', async () => {
+  it('should throw error when 2-char code is passed', (done) => {
     const airportData = {
       name: 'Airport',
       code: 'AB',
@@ -72,10 +78,11 @@ describe('Airport model', () => {
       const [error] = response.errors;
       assert.equal(error.type, 'Validation error');
       assert.equal(error.message, 'Validation len on code failed');
+      done();
     });
   });
 
-  it('should throw error when 4-char code is passed', async () => {
+  it('should throw error when 4-char code is passed', (done) => {
     const airportData = {
       name: 'Airport',
       code: 'ABCD',
@@ -85,12 +92,7 @@ describe('Airport model', () => {
       const [error] = response.errors;
       assert.equal(error.type, 'Validation error');
       assert.equal(error.message, 'Validation len on code failed');
+      done();
     });
-  });
-
-  it('should truncate the airports table with each test', async () => {
-    const count = await models.Airport.count();
-
-    assert.equal(count, 0);
   });
 });

@@ -2,9 +2,9 @@ module.exports = (sequelize, DataTypes) => {
   const Airline = sequelize.define('Airline', {
     name: {
       type: DataTypes.STRING,
-      validate :{
-        is: "^[a-zA-Z ]*$",
-      }
+      validate: {
+        is: '^[a-zA-Z ]*$',
+      },
     },
   });
 

@@ -7,7 +7,16 @@ module.exports = {
       type: Sequelize.INTEGER,
     },
     price: Sequelize.DOUBLE,
-    flightIndex: {
+    departureFlight: {
+      allowNull: false,
+      type: Sequelize.INTEGER,
+      references: {
+        model: 'Flights',
+        key: 'id',
+      },
+    },
+    returnFlight: {
+      allowNull: true,
       type: Sequelize.INTEGER,
       references: {
         model: 'Flights',

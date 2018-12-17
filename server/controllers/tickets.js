@@ -5,7 +5,8 @@ module.exports = {
     return Ticket
       .create({
         price: req.body.price,
-        flightIndex: req.body.flightIndex,
+        departureFlight: req.body.departureFlightId,
+        returnFlight: req.body.returnFlightId,
       })
       .then((airline) => res.status(201).send(airline))
       .catch((error) => res.status(400).send(error));

@@ -38,18 +38,39 @@ describe('Tickets controller', () => {
               destinationIndex: airports[0].id,
               originIndex: airports[1].id,
             },
+            {
+              airlineIndex: airline.id,
+              flightNumber: 'KLM-2347',
+              departureDateTime: '2018-10-23T21:37:12.012Z',
+              arrivalDateTime: '2018-10-24T21:37:12.012Z',
+              destinationIndex: airports[0].id,
+              originIndex: airports[1].id,
+            },
+            {
+              airlineIndex: airline.id,
+              flightNumber: 'KLM-2348',
+              departureDateTime: '2018-10-30T21:37:12.012Z',
+              arrivalDateTime: '2018-10-31T21:37:12.012Z',
+              destinationIndex: airports[1].id,
+              originIndex: airports[0].id,
+            },
           ], { returning: true }).then((flights) => {
             flightsData = flights;
             Ticket.bulkCreate([
               {
                 price: 689.99,
-                flightindex: flights[0].id,
+                departureFlight: flights[0].id,
               },
               {
                 price: 679.99,
-                flightindex: flights[1].id,
+                departureFlight: flights[1].id,
               },
-            ]).then(() => done());
+              {
+                price: 679.99,
+                departureFlight: flights[2].id,
+                returnFlight: flights[3].id,
+              },
+            ], { returning: true }).then(() => done());
           });
         });
     });
@@ -66,24 +87,26 @@ describe('Tickets controller', () => {
         res.should.have.status(200);
         res.should.be.json;
         res.body.should.be.a('array');
-        res.body.length.should.be.eql(2);
+        res.body.length.should.be.eql(3);
         res.body[0].should.have.property('id');
         res.body[0].should.have.property('price');
-        res.body[0].should.have.property('flightIndex');
+        res.body[0].should.have.property('departureFlight');
         res.body[0].should.have.property('updatedAt');
         res.body[0].should.have.property('createdAt');
         res.body[0].price.should.equal(689.99);
+        res.body[2].should.have.property('departureFlight');
+        res.body[2].should.have.property('returnFlight');
         done();
       });
   });
 
-  it('should add a SINGLE ticket on /tickets POST', (done) => {
+  it('should add a SINGLE ticket with only departureFlight on /tickets POST', (done) => {
     chai.request(server)
       .post('/api/tickets')
       .send(
         {
           price: 789.99,
-          flightIndex: flightsData[0].id,
+          departureFlightId: flightsData[0].id,
         }
       ).end((err, res) => {
         res.should.have.status(201);
@@ -91,7 +114,31 @@ describe('Tickets controller', () => {
         res.body.should.be.a('object');
         res.body.should.have.property('id');
         res.body.should.have.property('price');
-        res.body.should.have.property('flightIndex');
+        res.body.should.have.property('departureFlight');
+        res.body.should.have.property('updatedAt');
+        res.body.should.have.property('createdAt');
+        res.body.price.should.equal(789.99);
+        done();
+      });
+  });
+
+  it('should add a SINGLE ticket with departureFlight and returnFlight on /tickets POST', (done) => {
+    chai.request(server)
+      .post('/api/tickets')
+      .send(
+        {
+          price: 789.99,
+          departureFlightId: flightsData[0].id,
+          returnFlightId: flightsData[1].id,
+        }
+      ).end((err, res) => {
+        res.should.have.status(201);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('id');
+        res.body.should.have.property('price');
+        res.body.should.have.property('departureFlight');
+        res.body.should.have.property('returnFlight');
         res.body.should.have.property('updatedAt');
         res.body.should.have.property('createdAt');
         res.body.price.should.equal(789.99);

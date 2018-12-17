@@ -12,11 +12,16 @@ import flight from './flight';
  *
  * @return {Object}       An object to build the user from.
  */
-const data = async (props = {}) => flight().then((flightData) => {
+const data = async (props = {}) => Promise.all([
+  flight(),
+  flight(),
+]).then((response) => {
+  const [departureFlight, returnFlight] = response;
   const defaultProps = {
     id: faker.random.number(),
     price: faker.finance.amount(100, 1000),
-    flightIndex: flightData.id,
+    departureFlight: departureFlight.id,
+    returnFlight: returnFlight.id,
   };
 
   return Object.assign({}, defaultProps, props);
