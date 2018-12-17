@@ -64,4 +64,19 @@ describe('Airports controller', () => {
         done();
       });
   });
+
+  it('should return 400 on /airport POST if the code is not defined', (done) => {
+    chai.request(server)
+      .post('/api/airports')
+      .send({ name: 'Toronto Pearson International Airport' })
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('name');
+        res.body.should.have.property('errors');
+        res.body.errors[0].message.should.equal('Airport.code cannot be null');
+        done();
+      });
+  });
 });
