@@ -14,6 +14,6 @@ module.exports = {
     return Airline
       .all()
       .then(airlines => res.status(200).send(airlines))
-      .catch(error => res.status(400).send(error));
+      .catch(error => res.status(500).send(error));
   },
 };
