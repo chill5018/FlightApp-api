@@ -134,7 +134,7 @@ module.exports = {
                 const formattedData = makePairs(flights, results);
                 return res.status(200).send(formattedData);
               });
-          }).catch(error => res.status(400).send(error)));
+          }).catch(error => res.status(500).send(error)));
     });
   },
 };
