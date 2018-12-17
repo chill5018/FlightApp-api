@@ -55,20 +55,14 @@ module.exports = {
   },
 
   list(req, res) {
-    const hasQueryParams = !!Object.keys(req.query).length;
-
-    // Return all flight if there are no query params
-    if (!hasQueryParams) {
-      return Flight
-        .all()
-        .then(flights => res.status(200).send(flights))
-        .catch(error => res.status(400).send(error));
-    }
-
     const { departureCity } = req.query;
     const { arrivalCity } = req.query;
     const { departureDate } = req.query;
     const { returnDate } = req.query;
+
+    if (!departureCity || !arrivalCity || !departureDate) {
+      return res.status(400).send({ message: 'Invalid request' });
+    }
 
     const getDepartureAirportId = Airport.findOne({ where: { code: departureCity } })
       .then((airport) => airport.id);
@@ -83,17 +77,17 @@ module.exports = {
             include: [{
               model: Airline,
               attributes: ['id', 'name'],
-              as: 'airline'
+              as: 'airline',
             },
             {
               model: Airport,
               attributes: ['id', 'name', 'code'],
-              as: 'destination'
+              as: 'destination',
             },
             {
               model: Airport,
               attributes: ['id', 'name', 'code'],
-              as: 'origin'
+              as: 'origin',
             }],
             where: {
               [Op.and]: [
@@ -104,12 +98,10 @@ module.exports = {
           })
           .then(flights => {
             if (!returnDate) {
-              const formattedFlights = flights.map(flight => {
-                return {
-                  departureFlight: flight,
-                  returnFlight: null
-                };
-              });
+              const formattedFlights = flights.map(flight => ({
+                departureFlight: flight,
+                returnFlight: null,
+              }));
 
               return res.status(200).send(formattedFlights);
             }
@@ -119,17 +111,17 @@ module.exports = {
                 include: [{
                   model: Airline,
                   attributes: ['id', 'name'],
-                  as: 'airline'
+                  as: 'airline',
                 },
                 {
                   model: Airport,
                   attributes: ['id', 'name', 'code'],
-                  as: 'destination'
+                  as: 'destination',
                 },
                 {
                   model: Airport,
                   attributes: ['id', 'name', 'code'],
-                  as: 'origin'
+                  as: 'origin',
                 }],
                 where: {
                   [Op.and]: [
