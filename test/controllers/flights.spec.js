@@ -14,6 +14,8 @@ const { Airport, Flight, Airline } = require('../../server/models');
 describe('Flights controller', () => {
   let airlineData;
   let airportsData;
+  let newFlightId;
+
   beforeEach((done) => {
     Airline.create({ name: 'SAS' }).then((airline) => {
       Airport.bulkCreate([
@@ -136,7 +138,10 @@ describe('Flights controller', () => {
               destinationIndex: airports[1].id,
               originIndex: airports[0].id,
             },
-          ], { returning: true }).then(() => done());
+          ], { returning: true }).then((flights) => {
+            newFlightId = flights[0].id;
+            done();
+          });
         });
     });
   });
@@ -358,6 +363,77 @@ describe('Flights controller', () => {
         res.body.should.have.property('updatedAt');
         res.body.should.have.property('createdAt');
         res.body.flightNumber.should.equal('KLM-2347');
+        done();
+      });
+  });
+
+  it('should return 400 on /flights POST if airlineIndex is missing', (done) => {
+    chai.request(server)
+      .post('/api/flights')
+      .send(
+        {
+          flightNumber: 'KLM-2347',
+          departureDateTime: '2018-10-22T21:37:12.012Z',
+          arrivalDateTime: '2018-10-23T21:37:12.012Z',
+          destinationIndex: airportsData[0].id,
+          originIndex: airportsData[1].id,
+        }
+      ).end((err, res) => {
+        res.should.have.status(400);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('name');
+        res.body.should.have.property('errors');
+        res.body.errors[0].message.should.equal('Flight.airlineIndex cannot be null');
+        done();
+      });
+  });
+
+  it('should return 404 on /flights/:id GET when id is not found', (done) => {
+    chai.request(server)
+      .get('/api/flights/0')
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('message');
+        res.body.message.should.equal('Flight not found');
+        done();
+      });
+  });
+
+  it('should return 400 on /flights/:id GET when id is not a valid value', (done) => {
+    chai.request(server)
+      .get('/api/flights/test')
+      .end((err, res) => {
+        res.should.have.status(400);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('name');
+        res.body.should.have.property('parent');
+        res.body.should.have.property('original');
+        res.body.should.have.property('sql');
+        res.body.name.should.equal('SequelizeDatabaseError');
+        done();
+      });
+  });
+
+  it('should return 200 on /flights/:id GET when id is provided and exists', (done) => {
+    chai.request(server)
+      .get(`/api/flights/${newFlightId}`)
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.should.be.json;
+        res.body.should.be.a('object');
+        res.body.should.have.property('id');
+        res.body.should.have.property('airlineIndex');
+        res.body.should.have.property('flightNumber');
+        res.body.should.have.property('departureDateTime');
+        res.body.should.have.property('arrivalDateTime');
+        res.body.should.have.property('destinationIndex');
+        res.body.should.have.property('originIndex');
+        res.body.should.have.property('createdAt');
+        res.body.should.have.property('updatedAt');
         done();
       });
   });
