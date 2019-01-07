@@ -5,6 +5,10 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       validate: {
         isFloat: true,
+        min: {
+          args: [0],
+          msg: 'Ticket Price cannot be less than zero',
+        },
       },
     },
     departureFlight: {

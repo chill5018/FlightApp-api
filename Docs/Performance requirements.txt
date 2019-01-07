@@ -1,0 +1,6 @@
+﻿Performance requirements
+
+
+* 90% of the GET requests’ response times should be < 300ms for a small number of users (<2000)
+* 90% of the GET requests’ response times should be < 2000ms for a medium number of users (2000-3500)
+* 90% of the GET requests’ response times should be < 3000ms for a large number of users (>3500)
